@@ -5,8 +5,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from openpyxl.reader.excel import load_workbook
 from openpyxl.styles import Alignment, PatternFill
-from openpyxl.utils.dataframe import dataframe_to_rows
-from openpyxl.workbook import Workbook
+
 
 
 def excele_yazdir(eskisehirtoplam_bisiklet_ort, eskisehirtoplam_surus_ort, eskisehirtoplam_ortsure, sakaryatoplam_bisiklet_ort,
@@ -427,9 +426,6 @@ def main():
       urls = [input(f"Link {i + 1}: ") for i in range(num_links)]
 
 
-
-
-
       for url in urls:
 
         urlss = url
@@ -446,13 +442,8 @@ def main():
         yeni_katilan_toplam = yeni_katilan_yabanci + yeni_katilan_tr
         yeni_katilan_lists.append(yeni_katilan_toplam)
 
-
-
-
-
         #butun table elementlerini bulma
         table_elements = soup.find_all('td')
-
         #yssleri bulma ve toplama
         td_yss_locations = [4,13,31,40,49,58,67,76]
         yss_total_list = []
@@ -490,7 +481,6 @@ def main():
             sgs_total_minutes_list.append(total_minutes)
 
         sgs_total_sum = sum(sgs_total_minutes_list)
-
 
         #sbs bulma
         td_sbs_locations = [11,56,65,74]
@@ -536,8 +526,6 @@ def main():
         izmir_ort_sure_lists.append(izmir_ortsure)
         eskisehir_ort_sure_lists.append(eskisehir_ortsure)
         sakarya_ort_sure_lists.append(sakarya_ortsure)
-        #bisiklet basina ortalama dk bulma
-
 
         #bisiklet_ort_lists.append(izmir_bisiklet_ort)
         #bisiklet_ort_lists.append(eskisehir_bisiklet_ort)
@@ -555,21 +543,11 @@ def main():
         yss_total_lists.append(yss_total_list)
         sgs_total_minutes_lists.append(sgs_total_minutes_list)
 
-
-
-
-
       summed_sbs_list = [sum(values) for values in zip(*sbs_without_percentage_lists)]
-
       summed_yenikatilan = sum(yeni_katilan_lists)
       summed_destek_talebi = sum(destek_sayisi_lists)
-
       summed_yss_list = [sum(values) for values in zip(*yss_total_lists)]
-
       summed_sgs_list = [sum(values) for values in zip(*sgs_total_minutes_lists)]
-
-
-
 
       izmirtoplam_bisiklet_ort = summed_sgs_list[5] / summed_sbs_list[1]
       eskisehirtoplam_bisiklet_ort = summed_sgs_list[6] / summed_sbs_list[2]
@@ -586,9 +564,6 @@ def main():
       eskisehirtoplam_ortsure = summed_sgs_list[6] / summed_yss_list[6]
       sakaryatoplam_ortsure = summed_sgs_list[7] / summed_yss_list[7]
 
-
-
-
       if len(urls) == 2:
 
           excele_yazdir(eskisehirtoplam_bisiklet_ort, eskisehirtoplam_surus_ort, eskisehirtoplam_ortsure, sakaryatoplam_bisiklet_ort,
@@ -600,14 +575,6 @@ def main():
                         sakaryatoplam_surus_ort, sakaryatoplam_ortsure, izmirtoplam_bisiklet_ort, izmirtoplam_surus_ort, izmirtoplam_ortsure,
                         sbs_without_percentage_list, summed_yss_list, summed_sgs_list, 0, summed_yenikatilan, 0,
                         summed_destek_talebi, yss_total_lists, sgs_total_minutes_lists,izmir_bisikletort_lists,eskisehir_bisikletort_lists,sakarya_bisikletort_lists,izmir_surus_lists,eskisehir_surus_lists,sakarya_surus_lists,izmir_ort_sure_lists,eskisehir_ort_sure_lists,sakarya_ort_sure_lists,sbs_izmir,sbs_eskisehir,sbs_sakarya,yeni_katilan_lists,destek_sayisi_lists)
-
-
-
-
-
-
-
-
 
 if __name__ == "__main__":
     main()
